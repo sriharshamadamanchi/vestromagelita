@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-touch-id/android/build.gradle b/node_modules/react-native-touch-id/android/build.gradle
+index 41ea77f..145d6a4 100644
+--- a/node_modules/react-native-touch-id/android/build.gradle
++++ b/node_modules/react-native-touch-id/android/build.gradle
+@@ -4,7 +4,7 @@ buildscript {
+       url 'https://maven.google.com/'
+       name 'Google'
+     }
+-    jcenter()
++    mavenCentral()
+     google()
+   }
+ 
