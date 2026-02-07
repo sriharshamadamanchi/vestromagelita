@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "913793369553",
+    "project_id": "vestromagelita-b4584",
+    "storage_bucket": "vestromagelita-b4584.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913793369553:android:a876b6c086b33e0b2e0cf0",
+        "android_client_info": {
+          "package_name": "com.vestro.magelita"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb4nh1xQNc_o81DGlWDgerqnlsQWPeKbU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
