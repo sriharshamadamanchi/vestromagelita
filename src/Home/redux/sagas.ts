@@ -1,7 +1,19 @@
 import { call, put, takeLatest } from "redux-saga/effects"
 import { failedLoadingAction, startLoadingAction, successLoadingAction } from "../../common/loaderRedux/actions"
-import { FetchProductsByCategoryAction, fetchCategoriesAction, fetchProductsByCategoryAction, storeCategoriesAction, storeProductsByCategoryAction } from "./actions"
-import { fetchCategoriesAPI, fetchProductsByCategoryAPI } from "./api"
+import { FetchProductsByCategoryAction, fetchCategoriesAction, fetchProductsAction, fetchProductsByCategoryAction, storeCategoriesAction, storeProductsAction, storeProductsByCategoryAction } from "./actions"
+import { fetchCategoriesAPI, fetchProductsAPI, fetchProductsByCategoryAPI } from "./api"
+
+export function *fetchProductsSaga(): any {
+  try {
+    yield put(startLoadingAction({ name: "FetchProducts" }))
+    const data = yield call(fetchProductsAPI)
+    yield put(storeProductsAction(data))
+    yield put(successLoadingAction({ name: "FetchProducts", msg: "" }))
+  } catch (error: any) {
+    console.log("error in FetchProducts", error)
+    yield put(failedLoadingAction({ name: "FetchProducts", msg: "" }))
+  }
+}
 
 export function *fetchCategoriesSaga(): any {
   try {
@@ -30,7 +42,8 @@ export function *fetchProductsByCategorySaga(action: { payload: FetchProductsByC
 
 const homeSagas = [
   takeLatest(fetchCategoriesAction, fetchCategoriesSaga),
-  takeLatest(fetchProductsByCategoryAction, fetchProductsByCategorySaga)
+  takeLatest(fetchProductsByCategoryAction, fetchProductsByCategorySaga),
+  takeLatest(fetchProductsAction, fetchProductsSaga)
 ]
 
 export default homeSagas;

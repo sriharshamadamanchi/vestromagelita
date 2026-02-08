@@ -1,5 +1,11 @@
 import { mainAxios } from "../../common/apiWrapper"
 
+export const fetchProductsAPI = async () => {
+  const { data } = await mainAxios.get("/products")
+
+  return data
+}
+
 export const fetchCategoriesAPI = async () => {
   const { data } = await mainAxios.get("/categories")
 

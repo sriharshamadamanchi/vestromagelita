@@ -29,6 +29,7 @@ export type loaderReducerStateType = {
 
 export interface homeReducerStateType {
     categories: Category[]
+    products: Product[]
     productsByCategory: Record<string, Product[]>
 };
 

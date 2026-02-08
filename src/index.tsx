@@ -1,10 +1,10 @@
 import React from "react";
-import { AppState, AppStateStatus, Platform } from "react-native";
+import { AppState, AppStateStatus, Platform, StyleSheet, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { theme } from "./common/theme";
 import { moderateScale } from "react-native-size-matters";
 import { Label } from "./common/components";
-import { HomeTab } from "./Home/Home";
+import { Categories } from "./Home/Categories";
 import { useTheme } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { storeType } from "./common/store/types";
@@ -15,6 +15,60 @@ import ForgotPassword from "./Authentication/ForgotPassword/ForgotPassword";
 import { Register } from "./Authentication/Register/Register";
 import { ProductByCategory } from "./Home/ProductByCategory";
 import { ProductDetails } from "./Home/ProductDetails";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Profile } from "./Profile/Profile";
+import Icon from "react-native-vector-icons/AntDesign";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import { Products } from "./Home/Products";
+
+const styles = StyleSheet.create({
+  tabsStyle: { flex: 1, backgroundColor: theme.colors.onPrimary }
+});
+
+const Tab = createBottomTabNavigator();
+
+export const HomeTabbar = () => {
+
+  return (
+    <View style = {styles.tabsStyle}>
+      <Tab.Navigator
+        backBehavior = {"initialRoute"}
+        screenOptions = {{
+          headerShown: false,
+          tabBarHideOnKeyboard: Platform.OS === "android",
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarStyle: {
+            height: Platform.OS === "android" ? moderateScale(65) : moderateScale(90),
+            paddingTop: moderateScale(5)
+          },
+          tabBarLabel: ({ color, children }) => {
+            return (
+              <Label s bold title = {children} style = {{ color, paddingBottom: moderateScale(10) }} />
+            )
+          }
+        }}>
+        <Tab.Screen
+          options = {{
+            tabBarIcon: ({ focused }) => <MaterialIcons name = "list" color = {focused ? theme.colors.primary : theme.colors.secondary} size = {moderateScale(30)} />
+          }}
+          name = {"Products"}
+          component = {Products} />
+        <Tab.Screen
+          options = {{
+            tabBarIcon: ({ focused }) => <MaterialIcons name = "category" color = {focused ? theme.colors.primary : theme.colors.secondary} size = {moderateScale(30)} />
+          }}
+          name = {"Categories"}
+          component = {Categories} />
+        <Tab.Screen
+          options = {{
+            tabBarIcon: ({ focused }) => <Icon name = "profile" color = {focused ? theme.colors.primary : theme.colors.secondary} size = {moderateScale(30)} />
+          }}
+          name = {"Profile"}
+          component = {Profile} />
+      </Tab.Navigator>
+    </View>
+  );
+}
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -45,17 +99,15 @@ export const Home = () => {
   let initialRouteName: keyof RootStackParamList = "LoginOrRegister";
 
   if (isLoggedIn) {
-    initialRouteName = "HomeTab"
+    initialRouteName = "HomeTabbar"
   }
 
   return (
     <Stack.Navigator key = {initialRouteName} initialRouteName = {initialRouteName}
       screenOptions = {{
         headerTitleAlign: "center",
-        headerBackTitle: "",
         headerStyle: {
-          backgroundColor: mtheme.colors.background,
-          height: Platform.OS === "android" ? moderateScale(100) : 0
+          backgroundColor: mtheme.colors.background
         },
         headerTitleStyle: {
           fontSize: theme.font.fontSizes.xl20,
@@ -76,10 +128,10 @@ export const Home = () => {
             <Stack.Screen
               options = {(): any => {
                 return {
-                  title: "Categories"
+                  headerShown: false
                 };
               }}
-              name = "HomeTab" component = {HomeTab} />
+              name = "HomeTabbar" component = {HomeTabbar} />
             <Stack.Screen
               options = {(): any => {
                 return {

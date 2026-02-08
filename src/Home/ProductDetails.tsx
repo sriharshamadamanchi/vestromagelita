@@ -1,8 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import colors from "../common/theme/material-theme.json";
-import { useSelector } from "react-redux";
-import { storeType } from "../common/store/types";
+import { Product } from "../common/store/types";
 import { moderateScale } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import { Carousel, CurvedButton, Label } from "../common/components";
@@ -34,10 +33,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export const ProductDetails = ({ route: { params: { categoryId, productId } } }: {readonly route: {params: {categoryId: number, productId: number }}}) => {
+export const ProductDetails = ({ route: { params: { product } } }: {readonly route: {params: {product: Product }}}) => {
 
-  const products = useSelector((store: storeType) => store.home.productsByCategory[categoryId]) || []
-  const product = products.find((p) => p.id === productId)
   const navigation = useNavigation()
 
   React.useEffect(() => {

@@ -1,6 +1,10 @@
 import { createAction } from "@reduxjs/toolkit";
 import { Category, Product } from "../../common/store/types";
 
+export const fetchProductsAction = createAction("src/Home/redux/actions/fetchProductsAction");
+
+export const storeProductsAction = createAction<StoreProductsByCategoryAction>("src/Home/redux/actions/storeProductsAction");
+
 export const fetchCategoriesAction = createAction("src/Home/redux/actions/fetchCategoriesAction");
 
 export const storeCategoriesAction = createAction<Category[]>("src/Home/redux/actions/storeCategoriesAction");

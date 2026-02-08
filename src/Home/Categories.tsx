@@ -8,6 +8,7 @@ import { Card, Label, LoadingIndicator } from "../common/components";
 import { moderateScale } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import { loaderSelector } from "../common/loaderRedux/selectors";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width } = Dimensions.get("window")
 
@@ -42,7 +43,7 @@ const RenderCategory = ({ category, onPress }: { readonly category: Category, re
   )
 }
 
-export const HomeTab = () => {
+export const Categories = () => {
 
   const dispatch = useDispatch()
   const categories = useSelector((store: storeType) => store.home.categories)
@@ -54,15 +55,17 @@ export const HomeTab = () => {
   }, [dispatch])
 
   return (
-    <View style = {styles.container}>
-      <LoadingIndicator loading = {loading} />
-      <FlatList
-        data = {categories}
-        numColumns = {2}
-        renderItem = {({ item }) => <RenderCategory category = {item} onPress = {() => {
-          navigation.navigate("ProductByCategory", { categoryId: item.id, name: item.name })
-        }} />}
-      />
-    </View>
+    <SafeAreaView style = {styles.container}>
+      <View style = {styles.container}>
+        <LoadingIndicator loading = {loading} />
+        <FlatList
+          data = {categories}
+          numColumns = {2}
+          renderItem = {({ item }) => <RenderCategory category = {item} onPress = {() => {
+            navigation.navigate("ProductByCategory", { categoryId: item.id, name: item.name })
+          }} />}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
