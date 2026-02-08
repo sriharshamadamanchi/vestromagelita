@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Login = () => {
+const Login = ({ route: { params: { email, password } } }: { readonly route: {params:{email: string, password: string }}}) => {
   const navigation = useNavigation<LoginOrRegisterScreenNavigationProp>()
   const dispatch = useDispatch()
 
@@ -92,7 +92,7 @@ const Login = () => {
           <Label center xxxl title = "Welcome Back !" style = {styles.labelStyle} />
 
           <Formik
-            initialValues = {{ email: "", password: "" }}
+            initialValues = {{ email: email || "", password: password || "" }}
             onSubmit = {() => { }}
             validationSchema = {
               Yup.object().shape({
@@ -157,7 +157,7 @@ const Login = () => {
                       events = {strings("Analytics.LoginWithEmail")}
                       onPress = {() => {
                         if (isValid) {
-                          dispatch(loginAction({}));
+                          dispatch(loginAction({ email: values.email, password: values.password }));
                         }
                       }}
                     />

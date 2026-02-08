@@ -7,3 +7,7 @@ export const loggedInSuccessfullyAction = (): any => action("src/authentication/
 export const logoutAction = (payload: any): any => action("src/authentication/redux/actions/logoutAction", payload);
 
 export const registerAction = (payload: any ): any => action("src/authentication/redux/actions/registerAction", payload);
+
+export const storeLoginDetailsAction = (payload: any) => action("src/authentication/redux/actions/storeLoginDetailsAction", payload);
+
+export const clearLoginDetailsAction = (): any => action("src/authentication/redux/actions/clearLoginDetailsAction");

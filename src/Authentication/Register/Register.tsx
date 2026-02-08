@@ -5,11 +5,12 @@ import { Formik } from "formik";
 import { strings } from "../../common/i18n";
 import { theme } from "../../common/theme";
 import { moderateScale } from "react-native-size-matters";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registrationValidationSchema } from "./validations";
-import { storeType } from "../../common/store/types";
 import { COUNTRY_CODES, DEFAULT_COUNTRY_CODE, TEXTFIELD_MAX_LENGTH } from "../../common/constants";
 import { PrimaryView } from "../../common/components/PrimaryView/PrimaryView.android";
+import { registerAction } from "../redux/actions";
+import { loaderSelector } from "../../common/loaderRedux/selectors";
 
 const styles = StyleSheet.create({
   container: {
@@ -55,8 +56,10 @@ const styles = StyleSheet.create({
 });
 
 export const Register = (): React.ReactNode => {
-  const loading = useSelector((state: storeType): boolean => state.loader.loading);
+  const { loading }: { loading: boolean } = useSelector(loaderSelector("Register"))
   const confirmpassword: any = React.useRef("");
+
+  const dispatch = useDispatch()
 
   return (
     <PrimaryView>
@@ -68,7 +71,6 @@ export const Register = (): React.ReactNode => {
         <View style = {styles.container}>
           <Formik
             initialValues = {{
-              smsConsent: false,
               countryCode: DEFAULT_COUNTRY_CODE
             }}
             onSubmit = {() => {}}
@@ -189,12 +191,12 @@ export const Register = (): React.ReactNode => {
                   <CurvedButton
                     testID = "register"
                     accessibilityLabel = "register"
-                    disableButton = {(!isValid) || (!values.smsConsent)}
+                    disableButton = {!isValid}
                     title = {strings("Register.register")}
                     buttonStyle = {styles.curvedButtonStyle}
                     events = {strings("Analytics.RegisterScreenRegister")}
                     onPress = {() => {
-
+                      dispatch(registerAction({ name: values.name, email: values.email, password: values.password }))
                     }}
                   />
                 </ScrollView>
