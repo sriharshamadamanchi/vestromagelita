@@ -16,3 +16,12 @@ export const COUNTRY_CODES: any = [
   }
 
 ];
+
+export const CATEGORY_NAME = {
+  "t-shirt": "T-Shirt",
+  "electronics": "Electronics",
+  "furniture": "Furniture",
+  "shoes": "Shoes",
+  "Miscellaneous": "Miscellaneous",
+  "smartwatch": "Smart Watch"
+};

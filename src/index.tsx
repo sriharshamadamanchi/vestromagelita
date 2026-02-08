@@ -13,6 +13,7 @@ import Login from "./Authentication/Login/Login";
 import { RootStackParamList } from "./common/navigation/types";
 import ForgotPassword from "./Authentication/ForgotPassword/ForgotPassword";
 import { Register } from "./Authentication/Register/Register";
+import { ProductByCategory } from "./Home/ProductByCategory";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -70,13 +71,22 @@ export const Home = () => {
     >
       {
         isLoggedIn ?
-          <Stack.Screen
-            options = {(): any => {
-              return {
-                title: "Home"
-              };
-            }}
-            name = "HomeTab" component = {HomeTab} />
+          <>
+            <Stack.Screen
+              options = {(): any => {
+                return {
+                  title: "Categories"
+                };
+              }}
+              name = "HomeTab" component = {HomeTab} />
+            <Stack.Screen
+              options = {(): any => {
+                return {
+                  title: "Products"
+                };
+              }}
+              name = "ProductByCategory" component = {ProductByCategory} />
+          </>
           :
           <>
             <Stack.Screen options = {(): any => {
