@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View, ViewStyle } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import RNCarousel, { ICarouselInstance, Pagination } from "react-native-reanimated-carousel";
 import { theme } from "../../theme";
@@ -27,11 +27,14 @@ const styles = StyleSheet.create({
 type CarouselProps<T> = {
   readonly data: T[];
   readonly renderItem: (info: { item: T; index: number }) => React.ReactElement;
+  readonly pagination?: boolean
+  readonly carouselStyle?: ViewStyle
+  readonly width?: number
 };
 
-const { width } = Dimensions.get("window")
+const { width: windowWidth } = Dimensions.get("window")
 
-export const Carousel = <T, >({ data, renderItem }: CarouselProps<T>) => {
+export const Carousel = <T, >({ data, renderItem, pagination = true, carouselStyle = {}, width }: CarouselProps<T>) => {
 
   const progress = useSharedValue<number>(0);
 
@@ -55,10 +58,10 @@ export const Carousel = <T, >({ data, renderItem }: CarouselProps<T>) => {
         ref = {ref}
         data = {data}
         loop
-        width = {width}
+        width = {width || windowWidth}
         pagingEnabled
         snapEnabled
-        style = {styles.carouselStyle}
+        style = {{ ...styles.carouselStyle, ...carouselStyle }}
         mode = "parallax"
         modeConfig = {{
           parallaxScrollingScale: 0.9,
@@ -69,15 +72,18 @@ export const Carousel = <T, >({ data, renderItem }: CarouselProps<T>) => {
           progress.value = absoluteProgress;
         }}
       />
-      <Pagination.Basic
-        progress = {progress}
-        data = {data}
-        dotStyle = {styles.dotStyle}
-        activeDotStyle = {styles.activeDotStyle}
-        containerStyle = {styles.containerStyle}
-        horizontal
-        onPressPagination = {onPressPagination}
-      />
+      {
+        pagination &&
+              <Pagination.Basic
+                progress = {progress}
+                data = {data}
+                dotStyle = {styles.dotStyle}
+                activeDotStyle = {styles.activeDotStyle}
+                containerStyle = {styles.containerStyle}
+                horizontal
+                onPressPagination = {onPressPagination}
+              />
+      }
     </View>
   );
 }

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: moderateScale(50)
+    marginBottom: moderateScale(30)
   }
 })
 
