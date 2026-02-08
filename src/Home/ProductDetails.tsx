@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { storeType } from "../common/store/types";
 import { moderateScale } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
-import { CurvedButton, Label } from "../common/components";
+import { Carousel, CurvedButton, Label } from "../common/components";
 
 const styles = StyleSheet.create({
   container: {
@@ -16,8 +16,7 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(10)
   },
   imageStyle: {
-    height: moderateScale(300),
-    width: "100%"
+    height: moderateScale(300)
   },
   labelStyle: {
     marginTop: moderateScale(10)
@@ -49,7 +48,14 @@ export const ProductDetails = ({ route: { params: { categoryId, productId } } }:
 
   return (
     <View style = {styles.container}>
-      <Image style = {styles.imageStyle} source = {{ uri: product?.images[0] }} />
+      <Carousel
+        data = {product?.images || []}
+        renderItem = {({ item }) => {
+          return (
+            <Image style = {styles.imageStyle} source = {{ uri: item }} />
+          )
+        }}
+      />
       <View style = {styles.detailsStyle} >
         <Label style = {styles.labelStyle} title = {`$${product?.price || ""}`} />
         <Label secondary title = {product?.description || ""} numberOfLines = {10} ellipsizeMode = "tail" />
