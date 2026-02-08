@@ -29,18 +29,16 @@ const styles = StyleSheet.create({
   }
 })
 
-const RenderProduct = ({ product }: { readonly product: Product }) => {
+const RenderProduct = ({ product, onPress }: { readonly product: Product, readonly onPress: () => void }) => {
   return (
     <Card
       style = {styles.cardStyle}
-      onPress = {() => {
-
-      }}>
+      onPress = {onPress}>
       <View>
         <Image style = {styles.imageStyle} source = {{ uri: product.images.at(0) }} />
         <View style = {styles.labelStyle}>
           <Label title = {`$${product.price}`} />
-          <Label title = {product.title} numberOfLines = {2} ellipsizeMode = "tail" />
+          <Label secondary title = {product.title} numberOfLines = {2} ellipsizeMode = "tail" />
         </View>
       </View>
     </Card>
@@ -72,7 +70,7 @@ export const ProductByCategory = ({ route: { params: { categoryId, name } } }: {
       <FlatList
         data = {products}
         numColumns = {2}
-        renderItem = {({ item }) => <RenderProduct product = {item} />}
+        renderItem = {({ item }) => <RenderProduct product = {item} onPress = {() => navigation.navigate("ProductDetails", { categoryId, productId: item.id })} />}
       />
     </View>
   )

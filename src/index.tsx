@@ -14,6 +14,7 @@ import { RootStackParamList } from "./common/navigation/types";
 import ForgotPassword from "./Authentication/ForgotPassword/ForgotPassword";
 import { Register } from "./Authentication/Register/Register";
 import { ProductByCategory } from "./Home/ProductByCategory";
+import { ProductDetails } from "./Home/ProductDetails";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -86,6 +87,13 @@ export const Home = () => {
                 };
               }}
               name = "ProductByCategory" component = {ProductByCategory} />
+            <Stack.Screen
+              options = {(): any => {
+                return {
+                  title: "ProductDetails"
+                };
+              }}
+              name = "ProductDetails" component = {ProductDetails} />
           </>
           :
           <>
