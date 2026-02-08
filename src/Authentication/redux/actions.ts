@@ -7,6 +7,12 @@ export interface LoginActionType {
 
 export const loginAction = createAction<LoginActionType>("src/authentication/redux/actions/loginAction");
 
+export interface ForgotPasswordActionType {
+    email: string
+}
+
+export const forgotPasswordAction = createAction<ForgotPasswordActionType>("src/authentication/redux/actions/forgotPasswordAction");
+
 export const loggedInSuccessfullyAction = createAction("src/authentication/redux/actions/loggedInSuccessfullyAction");
 
 export interface LogoutActionType {

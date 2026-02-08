@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { failedLoadingAction, startLoadingAction, successLoadingAction } from "../../common/loaderRedux/actions";
-import { clearLoginDetailsAction, loggedInSuccessfullyAction, loginAction, logoutAction, registerAction, storeLoginDetailsAction } from "./actions";
+import { clearLoginDetailsAction, forgotPasswordAction, loggedInSuccessfullyAction, loginAction, logoutAction, registerAction, storeLoginDetailsAction } from "./actions";
 import { getAuth } from "@react-native-firebase/auth";
 import { Alert } from "react-native";
 import { navigate } from "../../common/navigation/navigationService";
@@ -118,7 +118,8 @@ export function *logoutSaga(action: { payload: { deleteAccount: boolean } }): an
 const loginSagas = [
   takeLatest(loginAction, loginSaga),
   takeLatest(registerAction, registerSaga),
-  takeLatest(logoutAction, logoutSaga)
+  takeLatest(logoutAction, logoutSaga),
+  takeLatest(forgotPasswordAction, forgotPasswordSaga)
 ]
 
 export default loginSagas

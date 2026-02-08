@@ -7,8 +7,9 @@ import { theme } from "../../common/theme"
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { strings } from "../../common/i18n"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { loaderSelector } from "../../common/loaderRedux/selectors"
+import { forgotPasswordAction } from "../redux/actions"
 
 const styles = StyleSheet.create({
   container: {
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
 const ForgotPassword = () => {
 
   const { loading }: { loading: boolean } = useSelector(loaderSelector("ForgotPassword"))
+  const dispatch = useDispatch()
 
   return (
     <KeyboardAvoidingView
@@ -93,7 +95,7 @@ const ForgotPassword = () => {
                     buttonStyle = {styles.curvedButtonStyle}
                     onPress = {() => {
                       resetForm()
-                      Alert.alert("Success", "Reset link has been sent to your email address")
+                      dispatch(forgotPasswordAction({ email: values.email }))
                     }}
                   />
                 </View>
