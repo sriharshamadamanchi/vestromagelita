@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.025
   },
   imageStyle: {
-    height: moderateScale(200),
+    height: moderateScale(120),
     width: "100%"
   },
   labelStyle: {

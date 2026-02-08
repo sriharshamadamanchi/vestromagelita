@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.025
   },
   imageStyle: {
-    height: moderateScale(200),
+    height: moderateScale(150),
     width: "100%"
   },
   labelStyle: {
@@ -40,7 +40,7 @@ const RenderProduct = ({ product }: { readonly product: Product }) => {
         <Image style = {styles.imageStyle} source = {{ uri: product.images.at(0) }} />
         <View style = {styles.labelStyle}>
           <Label title = {`$${product.price}`} />
-          <Label title = {product.title} />
+          <Label title = {product.title} numberOfLines = {2} ellipsizeMode = "tail" />
         </View>
       </View>
     </Card>
