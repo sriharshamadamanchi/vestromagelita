@@ -1,4 +1,3 @@
-import { getActionType } from "./typeSafe";
 import {
   failedLoadingAction,
   hideLoaderAction,
@@ -29,12 +28,12 @@ const initState: any = {};
 const internetCheckerMiddleware = (store: any) => (next: any) => (action: any) => {
   // In no internet, we should allow some actions
   const whiteListActions = [
-    getActionType(showLoaderAction),
-    getActionType(startLoadingAction), // We should allow show Loader
-    getActionType(hideLoaderAction),
-    getActionType(successLoadingAction),
-    getActionType(failedLoadingAction), // We should allow hide Loader
-    getActionType(resetAllLoadersAction) // We should allow reset all Loader
+    showLoaderAction,
+    startLoadingAction, // We should allow show Loader
+    hideLoaderAction,
+    successLoadingAction,
+    failedLoadingAction, // We should allow hide Loader
+    resetAllLoadersAction // We should allow reset all Loader
   ];
   if (true || whiteListActions.includes(action.type) || !action.type.startsWith("src/")) {
     return next(action);

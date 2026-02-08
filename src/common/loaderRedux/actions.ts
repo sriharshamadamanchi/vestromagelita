@@ -1,19 +1,19 @@
-import { action } from "../store/typeSafe";
+import { createAction } from "@reduxjs/toolkit";
 
-export const showLoaderAction = (): any => action("src/common/loaderRedux/showLoaderAction");
-export const hideLoaderAction = (): any => action("src/common/loaderRedux/hideLoaderAction");
+export const showLoaderAction = createAction("src/common/loaderRedux/showLoaderAction");
+export const hideLoaderAction = createAction("src/common/loaderRedux/hideLoaderAction");
 
 export type startLoadingActionType = {
     name: string,
     msg?: string
 };
-export const startLoadingAction = (payload: startLoadingActionType): any => action("src/common/loaderRedux/startLoadingAction", payload);
+export const startLoadingAction = createAction<startLoadingActionType>("src/common/loaderRedux/startLoadingAction");
 
 export type successLoadingActionType = {
     name: string,
     msg: string
 };
-export const successLoadingAction = (payload: successLoadingActionType): any => action("src/common/loaderRedux/successLoadingAction", payload);
+export const successLoadingAction = createAction<successLoadingActionType>("src/common/loaderRedux/successLoadingAction");
 
 export type failedLoadingActionType = {
     name: string,
@@ -21,14 +21,14 @@ export type failedLoadingActionType = {
     id?: string
 };
 
-export const failedLoadingAction = (payload: failedLoadingActionType): any => action("src/common/loaderRedux/failedLoadingAction", payload);
+export const failedLoadingAction = createAction<failedLoadingActionType>("src/common/loaderRedux/failedLoadingAction");
 
 export type removeLoaderActionType = {
     name: string
 };
 
-export const removeLoaderAction = (payload: removeLoaderActionType): any => action("src/common/loaderRedux/removeLoaderAction", payload);
+export const removeLoaderAction = createAction<removeLoaderActionType>("src/common/loaderRedux/removeLoaderAction");
 
-export const resetAllLoadersAction = (): any => action("src/common/loaderRedux/resetAllLoadersAction");
+export const resetAllLoadersAction = createAction("src/common/loaderRedux/resetAllLoadersAction");
 
-export const resetReducersAction = (): any => action("src/common/loaderRedux/resetReducersAction");
+export const resetReducersAction = createAction("src/common/loaderRedux/resetReducersAction");

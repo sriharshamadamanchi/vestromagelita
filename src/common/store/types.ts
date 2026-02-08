@@ -1,8 +1,11 @@
 
 export type loginReducerStateType = {
     loggedIn: boolean,
-    fcmToken: string,
-    deviceToken: string
+    user: {
+        email: string,
+        id: string,
+        name: string
+    }
 }
 
 export type loaderType = {

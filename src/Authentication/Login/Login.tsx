@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Login = ({ route: { params: { email, password } } }: { readonly route: {params:{email: string, password: string }}}) => {
+const Login = ({ route: { params: { email, password } = { email: "", password: "" } } }: { readonly route: {params:{ email: string, password: string }}}) => {
   const navigation = useNavigation<LoginOrRegisterScreenNavigationProp>()
   const dispatch = useDispatch()
 

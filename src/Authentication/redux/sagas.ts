@@ -1,6 +1,5 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { failedLoadingAction, startLoadingAction, successLoadingAction } from "../../common/loaderRedux/actions";
-import { getActionType } from "../../common/store/typeSafe";
 import { clearLoginDetailsAction, loggedInSuccessfullyAction, loginAction, logoutAction, registerAction, storeLoginDetailsAction } from "./actions";
 import { getAuth } from "@react-native-firebase/auth";
 import { Alert } from "react-native";
@@ -17,7 +16,7 @@ export function *loginSaga(action: { payload: { email: string, password: string 
     if (!userInfo?.emailVerified) {
       throw new Error("Email is not verified")
     }
-    yield put(storeLoginDetailsAction({ user: { id: userInfo.uid, email, name: userInfo?.displayName } }))
+    yield put(storeLoginDetailsAction({ id: userInfo.uid, email, name: userInfo?.displayName || "" }))
     yield put(loggedInSuccessfullyAction())
     yield put(successLoadingAction({ name: "Login", msg: "" }))
   } catch (error: any) {
@@ -117,9 +116,9 @@ export function *logoutSaga(action: { payload: { deleteAccount: boolean } }): an
 }
 
 const loginSagas = [
-  takeLatest(getActionType(loginAction), loginSaga),
-  takeLatest(getActionType(registerAction), registerSaga),
-  takeLatest(getActionType(logoutAction), logoutSaga)
+  takeLatest(loginAction, loginSaga),
+  takeLatest(registerAction, registerSaga),
+  takeLatest(logoutAction, logoutSaga)
 ]
 
 export default loginSagas
